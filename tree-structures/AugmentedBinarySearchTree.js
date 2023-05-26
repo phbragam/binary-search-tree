@@ -210,6 +210,39 @@ class AugmentedBinarySearchTree {
         return [...leftElements, node.value, ...rightElements];
       }
 
+      average(x) {
+        const sum = this.calculateSum(x);
+        const count = this.calculateCount(x);
+    
+        if (count === 0) {
+          return 0; // Avoid division by zero
+        }
+    
+        return sum / count;
+      }
+    
+      calculateSum(node) {
+        if (node === null) {
+          return 0;
+        }
+    
+        const leftSum = this.calculateSum(node.left);
+        const rightSum = this.calculateSum(node.right);
+    
+        return node.value + leftSum + rightSum;
+      }
+    
+      calculateCount(node) {
+        if (node === null) {
+          return 0;
+        }
+    
+        const leftCount = this.calculateCount(node.left);
+        const rightCount = this.calculateCount(node.right);
+    
+        return 1 + leftCount + rightCount;
+      }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
