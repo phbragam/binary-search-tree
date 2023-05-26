@@ -33,7 +33,7 @@ class AugmentedBinarySearchTree {
                 this.insertNode(node.right, newNode);
             }
         }
-        else{
+        else {
             console.log(`${newNode.value} value already exists on the tree and will be ignored`);
             return;
         }
@@ -55,7 +55,7 @@ class AugmentedBinarySearchTree {
     }
 
     printTree(s) {
-        if(s == 1) console.log(this.generateTreeString(this.root));
+        if (s == 1) console.log(this.generateTreeString(this.root));
         else if (s == 2) this.printNode(this.root, '');
     }
 
@@ -92,6 +92,10 @@ class AugmentedBinarySearchTree {
 
     // Método para remover um valor da árvore
     remove(value) {
+        if (!this.search(value)) {
+            console.log(`${value} value do not exists on the tree and wont be removed`);
+            return;
+        }
         this.root = this.removeNode(this.root, value);
     }
 

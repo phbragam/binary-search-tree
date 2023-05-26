@@ -19,6 +19,8 @@ tree.insert(13);
 tree.printTree(2);
 
 tree.insert(7);
-// tree.remove(8);
+tree.remove(39);
 
+tree.printTree(2);
+tree.insert(40);
 tree.printTree(2);
