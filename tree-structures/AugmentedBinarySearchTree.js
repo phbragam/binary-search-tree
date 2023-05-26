@@ -166,82 +166,101 @@ class AugmentedBinarySearchTree {
         return null;
     }
 
-    position (x) {
+    position(x) {
         let position = 0;
         let stack = [];
         let currentNode = this.root;
-    
+
         while (currentNode || stack.length > 0) {
-          if (currentNode) {
-            stack.push(currentNode);
-            currentNode = currentNode.left;
-          } else {
-            currentNode = stack.pop();
-            position++;
-    
-            if (currentNode.value === x) {
-              return position;
+            if (currentNode) {
+                stack.push(currentNode);
+                currentNode = currentNode.left;
+            } else {
+                currentNode = stack.pop();
+                position++;
+
+                if (currentNode.value === x) {
+                    return position;
+                }
+
+                currentNode = currentNode.right;
             }
-    
-            currentNode = currentNode.right;
-          }
         }
-    
+
         // not found
         return null;
-      }
+    }
 
-      median() {
+    median() {
         const elements = this.inOrderTraversal(this.root);
         const total = elements.length;
         const medianIndex = total % 2 === 0 ? total / 2 - 1 : Math.floor(total / 2);
-    
+
         return elements[medianIndex];
-      }
-    
-      inOrderTraversal(node) {
+    }
+
+    inOrderTraversal(node) {
         if (node === null) {
-          return [];
+            return [];
         }
-    
+
         const leftElements = this.inOrderTraversal(node.left);
         const rightElements = this.inOrderTraversal(node.right);
-    
-        return [...leftElements, node.value, ...rightElements];
-      }
 
-      average(x) {
+        return [...leftElements, node.value, ...rightElements];
+    }
+
+    average(x) {
         const sum = this.calculateSum(x);
         const count = this.calculateCount(x);
-    
+
         if (count === 0) {
-          return 0; // Avoid division by zero
+            return 0; // Avoid division by zero
         }
-    
+
         return sum / count;
-      }
-    
-      calculateSum(node) {
+    }
+
+    calculateSum(node) {
         if (node === null) {
-          return 0;
+            return 0;
         }
-    
+
         const leftSum = this.calculateSum(node.left);
         const rightSum = this.calculateSum(node.right);
-    
+
         return node.value + leftSum + rightSum;
-      }
-    
-      calculateCount(node) {
+    }
+
+    calculateCount(node) {
         if (node === null) {
-          return 0;
+            return 0;
         }
-    
+
         const leftCount = this.calculateCount(node.left);
         const rightCount = this.calculateCount(node.right);
-    
+
         return 1 + leftCount + rightCount;
-      }
+    }
+
+    isFull() {
+        return this.isFullBinaryTree(this.root);
+    }
+
+    isFullBinaryTree(node) {
+        if (node === null) {
+            return true; // An empty tree is considered a full binary tree
+        }
+
+        if ((node.left === null && node.right !== null) || (node.left !== null && node.right === null)) {
+            return false; // One child exists while the other doesn't
+        }
+
+        const isLeftFull = this.isFullBinaryTree(node.left);
+        const isRightFull = this.isFullBinaryTree(node.right);
+
+        return isLeftFull && isRightFull;
+    }
 
 }
 
