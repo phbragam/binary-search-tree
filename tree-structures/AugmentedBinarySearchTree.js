@@ -1,3 +1,5 @@
+const Node = require('./Node');
+
 class AugmentedBinarySearchTree {
     constructor() {
         this.root = null;
@@ -82,6 +84,54 @@ class AugmentedBinarySearchTree {
         this.printNode(node.left, newIndent);
         this.printNode(node.right, newIndent);
     }
+
+    // Método para remover um valor da árvore
+    remove(value) {
+        this.root = this.removeNode(this.root, value);
+    }
+
+    removeNode(node, key) {
+        if (node === null) {
+            return null;
+        } else if (key < node.value) {
+            node.left = this.removeNode(node.left, key);
+            return node;
+        } else if (key > node.value) {
+            node.right = this.removeNode(node.right, key);
+            return node;
+        } else {
+            if (node.left === null && node.right === null) {
+                node = null;
+                return node;
+            }
+
+            if (node.left === null) {
+                node = node.right;
+                node.parent = node;
+                return node;
+            }
+
+            if (node.right === null) {
+                node = node.left;
+                node.parent = node;
+                return node;
+            }
+
+            const minNode = this.findMinNode(node.right);
+            node.value = minNode.value;
+            node.right = this.removeNode(node.right, minNode.value);
+            return node;
+        }
+    }
+
+    findMinNode(node) {
+        if (node.left === null) {
+            return node;
+        } else {
+            return this.findMinNode(node.left);
+        }
+    }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
