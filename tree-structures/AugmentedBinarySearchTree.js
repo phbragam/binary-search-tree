@@ -162,9 +162,34 @@ class AugmentedBinarySearchTree {
             }
         }
 
-        // Caso não encontre o elemento na posição desejada
+        // n bigger then tree
         return null;
     }
+
+    position (x) {
+        let position = 0;
+        let stack = [];
+        let currentNode = this.root;
+    
+        while (currentNode || stack.length > 0) {
+          if (currentNode) {
+            stack.push(currentNode);
+            currentNode = currentNode.left;
+          } else {
+            currentNode = stack.pop();
+            position++;
+    
+            if (currentNode.value === x) {
+              return position;
+            }
+    
+            currentNode = currentNode.right;
+          }
+        }
+    
+        // not found
+        return null;
+      }
 
 }
 
