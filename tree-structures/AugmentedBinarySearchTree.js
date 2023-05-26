@@ -191,6 +191,25 @@ class AugmentedBinarySearchTree {
         return null;
       }
 
+      median() {
+        const elements = this.inOrderTraversal(this.root);
+        const total = elements.length;
+        const medianIndex = total % 2 === 0 ? total / 2 - 1 : Math.floor(total / 2);
+    
+        return elements[medianIndex];
+      }
+    
+      inOrderTraversal(node) {
+        if (node === null) {
+          return [];
+        }
+    
+        const leftElements = this.inOrderTraversal(node.left);
+        const rightElements = this.inOrderTraversal(node.right);
+    
+        return [...leftElements, node.value, ...rightElements];
+      }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
