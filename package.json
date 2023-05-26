@@ -1,0 +1,11 @@
+{
+  "name": "abb",
+  "version": "1.0.0",
+  "description": "Trabalho referente a 2 unidade de EDB2 - arvore binaria de busca",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pedro Henrique Braga Moraes",
+  "license": "ISC"
+}
