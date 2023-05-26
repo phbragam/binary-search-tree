@@ -141,6 +141,31 @@ class AugmentedBinarySearchTree {
         }
     }
 
+    nthElement(n) {
+        let count = 0;
+        let stack = [];
+        let currentNode = this.root;
+
+        while (currentNode || stack.length > 0) {
+            if (currentNode) {
+                stack.push(currentNode);
+                currentNode = currentNode.left;
+            } else {
+                currentNode = stack.pop();
+                count++;
+
+                if (count === n) {
+                    return currentNode.value;
+                }
+
+                currentNode = currentNode.right;
+            }
+        }
+
+        // Caso não encontre o elemento na posição desejada
+        return null;
+    }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
