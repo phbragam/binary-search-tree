@@ -18,6 +18,7 @@ tree.insert(13);
 // console.log(tree.search(6).value);
 tree.printTree(2);
 
-tree.remove(8);
+tree.insert(7);
+// tree.remove(8);
 
 tree.printTree(2);

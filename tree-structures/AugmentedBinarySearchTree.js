@@ -1,6 +1,7 @@
 const Node = require('./Node');
 
 class AugmentedBinarySearchTree {
+
     constructor() {
         this.root = null;
     }
@@ -24,13 +25,17 @@ class AugmentedBinarySearchTree {
             } else {
                 this.insertNode(node.left, newNode);
             }
-        } else {
+        } else if (newNode.value > node.value) {
             if (node.right === null) {
                 node.right = newNode;
                 newNode.parent = node;
             } else {
                 this.insertNode(node.right, newNode);
             }
+        }
+        else{
+            console.log(`${newNode.value} value already exists on the tree and will be ignored`);
+            return;
         }
     }
 
