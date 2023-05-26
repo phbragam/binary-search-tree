@@ -317,6 +317,61 @@ class AugmentedBinarySearchTree {
         return result;
     }
 
+    processCommands(commands) {
+
+        for (const c of commands) {
+            let [command, parameter] = c.split(' ');
+
+            command = command.replace(/\s/g, '');
+
+            switch (command) {
+                case 'ENESIMO':
+                    if (parameter !== undefined) {
+                        const n = parseInt(parameter, 10);
+                        console.log(`ENESIMO ${this.nthElement(n)}`);
+                    }
+                    break;
+
+                case 'POSICAO':
+                    if (parameter !== undefined) {
+                        const pos = parseInt(parameter, 10);
+                        console.log(`POSICAO ${this.position(pos)}`);
+                    }
+                    break;
+
+                case 'MEDIANA':
+                    console.log(`MEDIANA ${this.median()}`);
+                    break;
+
+                case 'CHEIA':
+                    console.log(`CHEIA ${this.isFull()}`);
+                    break;
+
+                case 'COMPLETA':
+                    console.log(`COMPLETA ${this.isComplete()}`);
+                    break;
+
+                case 'IMPRIMA':
+                    if (parameter !== undefined) {
+                        const s = parseInt(parameter, 10);
+                        this.printTree(s);
+                    }
+                    break;
+
+                case 'REMOVA':
+                    if (parameter !== undefined) {
+                        const value = parseInt(parameter, 10);
+                        this.remove(value);
+                    }
+                    break;
+
+                default:
+                    console.log('Invalid command:', command);
+                    break;
+            }
+        }
+    }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
