@@ -31,6 +31,21 @@ class AugmentedBinarySearchTree {
             }
         }
     }
+
+    // Método para buscar um valor na árvore
+    search(value) {
+        return this.searchNode(this.root, value);
+    }
+
+    searchNode(node, value) {
+        if (node === null || node.value === value) {
+            return node;
+        } else if (value < node.value) {
+            return this.searchNode(node.left, value);
+        } else {
+            return this.searchNode(node.right, value);
+        }
+    }
 }
 
 module.exports = AugmentedBinarySearchTree;
