@@ -46,6 +46,42 @@ class AugmentedBinarySearchTree {
             return this.searchNode(node.right, value);
         }
     }
+
+    printTree(s) {
+        if(s == 1) console.log(this.generateTreeString(this.root));
+        else if (s == 2) this.printNode(this.root, '');
+    }
+
+    generateTreeString(node) {
+        if (node === null) {
+            return '';
+        }
+
+        let str = '';
+        str += node.value;
+
+        if (node.left !== null || node.right !== null) {
+            str += ' (';
+            str += this.generateTreeString(node.left);
+            str += ') (';
+            str += this.generateTreeString(node.right);
+            str += ')';
+        }
+
+        return str;
+    }
+
+    printNode(node, indent) {
+        if (node === null) {
+            return;
+        }
+
+        console.log(indent + node.value + '--------------');
+
+        const newIndent = indent + ' '.repeat(7);
+        this.printNode(node.left, newIndent);
+        this.printNode(node.right, newIndent);
+    }
 }
 
 module.exports = AugmentedBinarySearchTree;
