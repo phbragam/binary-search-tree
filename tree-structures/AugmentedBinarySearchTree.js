@@ -262,6 +262,41 @@ class AugmentedBinarySearchTree {
         return isLeftFull && isRightFull;
     }
 
+    isComplete() {
+        return this.isCompleteBinaryTree(this.root);
+    }
+
+    isCompleteBinaryTree(node) {
+        if (node === null) {
+            return true; // An empty tree is considered a complete binary tree
+        }
+
+        let hasNoChild = false;
+        const queue = [node];
+
+        while (queue.length > 0) {
+            const currNode = queue.shift();
+
+            if (hasNoChild && (currNode.left !== null || currNode.right !== null)) {
+                return false; // Nodes should not have children after a node without children
+            }
+
+            if (currNode.left === null) {
+                hasNoChild = true;
+            } else {
+                queue.push(currNode.left);
+            }
+
+            if (currNode.right === null) {
+                hasNoChild = true;
+            } else {
+                queue.push(currNode.right);
+            }
+        }
+
+        return true;
+    }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
