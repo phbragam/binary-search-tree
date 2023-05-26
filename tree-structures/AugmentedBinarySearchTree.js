@@ -297,6 +297,26 @@ class AugmentedBinarySearchTree {
         return true;
     }
 
+    preOrder() {
+        return this.preOrderTraversal(this.root);
+    }
+
+    preOrderTraversal(node) {
+        if (node === null) {
+            return '';
+        }
+
+        let result = '';
+
+        result += node.value + ' '; // Append the value of the current node
+
+        result += this.preOrderTraversal(node.left); // Traverse the left subtree
+
+        result += this.preOrderTraversal(node.right); // Traverse the right subtree
+
+        return result;
+    }
+
 }
 
 module.exports = AugmentedBinarySearchTree;
