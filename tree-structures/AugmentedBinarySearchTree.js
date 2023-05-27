@@ -6,7 +6,7 @@ class AugmentedBinarySearchTree {
         this.root = null;
     }
 
-    // Método para inserir um valor na árvore
+    // Inserts a node in the Tree
     insert(value) {
         const newNode = new Node(value);
 
@@ -39,7 +39,7 @@ class AugmentedBinarySearchTree {
         }
     }
 
-    // Método para buscar um valor na árvore
+    // Search node in the Tree
     search(value) {
         return this.searchNode(this.root, value);
     }
@@ -90,7 +90,7 @@ class AugmentedBinarySearchTree {
         this.printNode(node.right, newIndent);
     }
 
-    // Método para remover um valor da árvore
+    // Remove node from tree
     remove(value) {
         if (!this.search(value)) {
             console.log(`${value} value do not exists on the tree and wont be removed`);
