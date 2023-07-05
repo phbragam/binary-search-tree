@@ -317,6 +317,46 @@ class AugmentedBinarySearchTree {
         return result;
     }
 
+    rightRotation(p) {
+        let u = p.left;
+        p.left = u.right;
+        u.right = p;
+
+        p.h = Math.max(getHeight(p.right), getHeight(p.left)) + 1;
+        u.h = Math.max(getHeight(u.right), getHeight(u.left)) + 1;
+
+        return u;
+    }
+
+    leftRotation(p) {
+        let u = p.right;
+        p.right = u.left;
+        u.left = p;
+
+        p.h = Math.max(getHeight(p.right), getHeight(p.left)) + 1;
+        u.h = Math.max(getHeight(u.right), getHeight(u.left)) + 1;
+
+        return u;
+    }
+
+    doubleRightRotation(p){
+        p.left = this.leftRotation(p.left);
+        return this.rightRotation(p);
+    }
+
+    doubleLeftRotation(p){
+        p.right = this.rightRotation(p.right);
+        return this.leftRotation(p);
+    }
+
+
+    getHeight(node) {
+        if (node === null) {
+            return -1;
+        }
+        return node.h;
+    }
+
     processCommands(commands) {
 
         for (const c of commands) {

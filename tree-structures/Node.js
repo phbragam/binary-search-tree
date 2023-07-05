@@ -5,6 +5,7 @@ class Node {
         this.left = null;
         this.right = null;
         this.parent = null;
+        this.h = 0;
     }
     
 }
