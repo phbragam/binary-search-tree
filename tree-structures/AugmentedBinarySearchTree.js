@@ -6,6 +6,39 @@ class AugmentedBinarySearchTree {
         this.root = null;
     }
 
+    // // Inserts a node in the Tree
+    // insert(value) {
+    //     const newNode = new Node(value);
+
+    //     if (this.root === null) {
+    //         this.root = newNode;
+    //     } else {
+    //         this.insertNode(this.root, newNode);
+    //     }
+    // }
+
+    // insertNode(node, newNode) {
+    //     if (newNode.value < node.value) {
+    //         if (node.left === null) {
+    //             node.left = newNode;
+    //             newNode.parent = node;
+    //         } else {
+    //             this.insertNode(node.left, newNode);
+    //         }
+    //     } else if (newNode.value > node.value) {
+    //         if (node.right === null) {
+    //             node.right = newNode;
+    //             newNode.parent = node;
+    //         } else {
+    //             this.insertNode(node.right, newNode);
+    //         }
+    //     }
+    //     else {
+    //         console.log(`${newNode.value} value already exists on the tree and will be ignored`);
+    //         return;
+    //     }
+    // }
+
     // Inserts a node in the Tree
     insert(value) {
         const newNode = new Node(value);
@@ -25,6 +58,15 @@ class AugmentedBinarySearchTree {
             } else {
                 this.insertNode(node.left, newNode);
             }
+            node.h = this.updateHeight(node);
+            if((this.getHeight(node.left) - this.getHeight(node.right)) == 2){
+                if(newNode.value < node.left.value){
+                    node = this.rightRotation(node);
+                }
+                else{
+                    node = this.doubleRightRotation(node);
+                }
+            }
         } else if (newNode.value > node.value) {
             if (node.right === null) {
                 node.right = newNode;
@@ -38,6 +80,8 @@ class AugmentedBinarySearchTree {
             return;
         }
     }
+
+    
 
     // Search node in the Tree
     search(value) {
@@ -322,8 +366,8 @@ class AugmentedBinarySearchTree {
         p.left = u.right;
         u.right = p;
 
-        p.h = Math.max(getHeight(p.right), getHeight(p.left)) + 1;
-        u.h = Math.max(getHeight(u.right), getHeight(u.left)) + 1;
+        p.h = this.updateHeight(p)
+        u.h = this.updateHeight(u);
 
         return u;
     }
@@ -333,18 +377,18 @@ class AugmentedBinarySearchTree {
         p.right = u.left;
         u.left = p;
 
-        p.h = Math.max(getHeight(p.right), getHeight(p.left)) + 1;
-        u.h = Math.max(getHeight(u.right), getHeight(u.left)) + 1;
+        p.h = this.updateHeight(p)
+        u.h = this.updateHeight(u);
 
         return u;
     }
 
-    doubleRightRotation(p){
+    doubleRightRotation(p) {
         p.left = this.leftRotation(p.left);
         return this.rightRotation(p);
     }
 
-    doubleLeftRotation(p){
+    doubleLeftRotation(p) {
         p.right = this.rightRotation(p.right);
         return this.leftRotation(p);
     }
@@ -355,6 +399,10 @@ class AugmentedBinarySearchTree {
             return -1;
         }
         return node.h;
+    }
+
+    updateHeight(node) {
+        return Math.max(this.getHeight(node.left), this.getHeight(node.right)) + 1;
     }
 
     processCommands(commands) {

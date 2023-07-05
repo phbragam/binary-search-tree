@@ -7,7 +7,7 @@ class Node {
         this.parent = null;
         this.h = 0;
     }
-    
+
 }
 
 module.exports = Node;
