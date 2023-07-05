@@ -1,10 +1,10 @@
-# Augmented Binary Search Tree
+# AVL Augmented Binary Search Tree 
 
-This is an implementation of an Augmented Binary Search Tree in JavaScript.
+This is an implementation of an AVL Augmented Binary Search Tree in JavaScript.
 
 ## Usage
 
-To run the code and test the augmented binary search tree implementation, follow these steps:
+To run the code and test the AVL augmented binary search tree implementation, follow these steps:
 
 1. Make sure you have [Node.js](https://nodejs.org) installed on your machine.
 

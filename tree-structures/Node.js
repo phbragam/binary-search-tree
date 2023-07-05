@@ -4,7 +4,6 @@ class Node {
         this.value = value;
         this.left = null;
         this.right = null;
-        this.parent = null;
         this.h = 0;
     }
 

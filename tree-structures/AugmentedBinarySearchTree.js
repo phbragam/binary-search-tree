@@ -6,47 +6,14 @@ class AugmentedBinarySearchTree {
         this.root = null;
     }
 
-    // // Inserts a node in the Tree
-    // insert(value) {
-    //     const newNode = new Node(value);
-
-    //     if (this.root === null) {
-    //         this.root = newNode;
-    //     } else {
-    //         this.insertNode(this.root, newNode);
-    //     }
-    // }
-
-    // insertNode(node, newNode) {
-    //     if (newNode.value < node.value) {
-    //         if (node.left === null) {
-    //             node.left = newNode;
-    //             newNode.parent = node;
-    //         } else {
-    //             this.insertNode(node.left, newNode);
-    //         }
-    //     } else if (newNode.value > node.value) {
-    //         if (node.right === null) {
-    //             node.right = newNode;
-    //             newNode.parent = node;
-    //         } else {
-    //             this.insertNode(node.right, newNode);
-    //         }
-    //     }
-    //     else {
-    //         console.log(`${newNode.value} value already exists on the tree and will be ignored`);
-    //         return;
-    //     }
-    // }
-
-    // Inserts a node in the Tree
+    // Inserts a node in the AVL Tree
     insert(value) {
         const newNode = new Node(value);
 
         if (this.root === null) {
             this.root = newNode;
         } else {
-            this.insertNode(this.root, newNode);
+            this.root = this.insertNode(this.root, newNode);
         }
     }
 
@@ -54,36 +21,47 @@ class AugmentedBinarySearchTree {
         if (newNode.value < node.value) {
             if (node.left === null) {
                 node.left = newNode;
-                newNode.parent = node;
             } else {
-                this.insertNode(node.left, newNode);
+                node.left = this.insertNode(node.left, newNode);
             }
-            node.h = this.updateHeight(node);
-            if((this.getHeight(node.left) - this.getHeight(node.right)) == 2){
-                if(newNode.value < node.left.value){
+
+            if ((this.getHeight(node.left) - this.getHeight(node.right)) == 2) {
+                if (newNode.value < node.left.value) {
                     node = this.rightRotation(node);
                 }
-                else{
+                else {
                     node = this.doubleRightRotation(node);
                 }
             }
         } else if (newNode.value > node.value) {
             if (node.right === null) {
                 node.right = newNode;
-                newNode.parent = node;
             } else {
-                this.insertNode(node.right, newNode);
+                node.right = this.insertNode(node.right, newNode);
+            }
+
+            if ((this.getHeight(node.right) - this.getHeight(node.left)) == 2) {
+                if (newNode.value > node.right.value) {
+                    node = this.leftRotation(node);
+                }
+                else {
+                    node = this.doubleLeftRotation(node);
+                }
             }
         }
         else {
             console.log(`${newNode.value} value already exists on the tree and will be ignored`);
             return;
         }
+
+        node.h = this.updateHeight(node);
+
+        return node;
     }
 
-    
 
-    // Search node in the Tree
+
+    // Search node in the AVL Tree
     search(value) {
         return this.searchNode(this.root, value);
     }
@@ -160,13 +138,11 @@ class AugmentedBinarySearchTree {
 
             if (node.left === null) {
                 node = node.right;
-                node.parent = node;
                 return node;
             }
 
             if (node.right === null) {
                 node = node.left;
-                node.parent = node;
                 return node;
             }
 
