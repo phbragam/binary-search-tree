@@ -112,7 +112,7 @@ class AugmentedBinarySearchTree {
         this.printNode(node.right, newIndent);
     }
 
-    // Remove node from tree
+    // Remove node from AVL tree
     remove(value) {
         if (!this.search(value)) {
             console.log(`${value} value do not exists on the tree and wont be removed`);
@@ -126,31 +126,48 @@ class AugmentedBinarySearchTree {
             return null;
         } else if (key < node.value) {
             node.left = this.removeNode(node.left, key);
-            return node;
         } else if (key > node.value) {
             node.right = this.removeNode(node.right, key);
-            return node;
         } else {
             if (node.left === null && node.right === null) {
                 node = null;
-                return node;
             }
-
-            if (node.left === null) {
+            else if (node.left === null) {
                 node = node.right;
-                return node;
             }
-
-            if (node.right === null) {
+            else if (node.right === null) {
                 node = node.left;
-                return node;
             }
-
-            const minNode = this.findMinNode(node.right);
-            node.value = minNode.value;
-            node.right = this.removeNode(node.right, minNode.value);
-            return node;
+            else {
+                const minNode = this.findMinNode(node.right);
+                node.value = minNode.value;
+                node.right = this.removeNode(node.right, minNode.value);
+            }
         }
+
+        if (node !== null) {
+            node.h = this.updateHeight(node);
+    
+            const balance = this.getHeight(node.left) - this.getHeight(node.right);
+    
+            if (balance == 2) {
+                if (this.getHeight(node.left.left) >= this.getHeight(node.left.right)) {
+                    node = this.rightRotation(node);
+                } else {
+                    node.left = this.leftRotation(node.left);
+                    node = this.rightRotation(node);
+                }
+            } else if (balance == -2) {
+                if (this.getHeight(node.right.right) >= this.getHeight(node.right.left)) {
+                    node = this.leftRotation(node);
+                } else {
+                    node.right = this.rightRotation(node.right);
+                    node = this.leftRotation(node);
+                }
+            }
+        }
+
+        return node;
     }
 
     findMinNode(node) {
