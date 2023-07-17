@@ -121,13 +121,13 @@ class AugmentedBinarySearchTree {
         this.root = this.removeNode(this.root, value);
     }
 
-    removeNode(node, key) {
+    removeNode(node, value) {
         if (node === null) {
             return null;
-        } else if (key < node.value) {
-            node.left = this.removeNode(node.left, key);
-        } else if (key > node.value) {
-            node.right = this.removeNode(node.right, key);
+        } else if (value < node.value) {
+            node.left = this.removeNode(node.left, value);
+        } else if (value > node.value) {
+            node.right = this.removeNode(node.right, value);
         } else {
             if (node.left === null && node.right === null) {
                 node = null;
